@@ -1,0 +1,7 @@
+estadounidense(coronel_west).
+nacion_hostil(corea).
+vendio_misiles_a(coronel_west, corea).
+
+criminal(X) :- estadounidense(X),
+    nacion_hostil(Y),
+    vendio_misiles_a(X, Y).
