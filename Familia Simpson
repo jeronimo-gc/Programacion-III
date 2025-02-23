@@ -1,1 +1,42 @@
+% padre_de
+padre_de(abraham, herbert).
+padre_de(abraham, homero).
+padre_de(clancy, marge).
+padre_de(clancy, patty).
+padre_de(clancy, selma).
+padre_de(homero, bart).
+padre_de(homero, lisa).
+padre_de(homero, maggie).
+
+% madre_de
+madre_de(mona, herbert).
+madre_de(mona, homero).
+madre_de(jacqueline, marge).
+madre_de(jacqueline, patty).
+madre_de(jacqueline, selma).
+madre_de(marge, bart).
+madre_de(marge, lisa).
+madre_de(marge, maggie).
+madre_de(selma, ling).
+
+
+% hermanos
+hermano_de(X, Y) :- 
+    padre_de(Z, X), padre_de(Z, Y),
+    madre_de(W, X), madre_de(W, Y),
+    X \= Y.
+
+% tios
+tio_de(X, Y) :- padre_de(P, Y), hermano_de(X, P).
+tio_de(X, Y) :- madre_de(P, Y), hermano_de(X, P).
+
+% primos
+primo_de(X, Y) :-
+(padre_de(P, X) ; madre_de(P, X)),
+(padre_de(Q, Y) ; madre_de(Q, Y)),
+hermano_de(P, Q),
+ X \= Y.
+
+
+
 
