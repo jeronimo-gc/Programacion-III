@@ -1,0 +1,24 @@
+
+%vancouver
+conexion(vancouver, edmonton, 16).
+conexion(vancouver, calgary, 13).
+
+%edmonton
+conexion(edmonton, saskatoon, 12).
+
+%saskatoon
+conexion(saskatoon, winnipeg, 20).
+conexion(saskatoon, calgary, 9).
+
+%regina
+conexion(regina, saskatoon, 7).
+conexion(regina, winnipeg, 4).
+
+%calgary
+conexion(calgary, regina, 14).
+conexion(calgary, edmonton, 4).
+
+tiene_aristas(X) :- conexion(X,_,_).
+
+llegar(Inicio,Destino,Intermedio,Costo) :-
+    conexion(Inicio,Intermedio,C1) , conexion(Intermedio,Destino,C2), Costo is C1+C2.
