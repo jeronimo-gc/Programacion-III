@@ -22,3 +22,6 @@ tiene_aristas(X) :- conexion(X,_,_).
 
 llegar(Inicio,Destino,Intermedio,Costo) :-
     conexion(Inicio,Intermedio,C1) , conexion(Intermedio,Destino,C2), Costo is C1+C2.
+
+camino(X,Y) :- conexion(X,Y,_).
+camino(X,Y) :- conexion(X,Z,_), camino(Z,Y).
