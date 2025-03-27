@@ -1,0 +1,38 @@
+
+
+
+padre_de(abraham, [herbert, homero]).
+padre_de(clancy, [marge, patty, selma]).
+padre_de(homero, [bart, lisa, maggie]).
+
+madre_de(mona, [herbert, homero]).
+madre_de(jacqueline, [marge, patty, selma]).
+madre_de(marge, [bart, lisa, maggie]).
+madre_de(selma, [ling]).
+
+
+padre(Padre, Hijo) :-
+    padre_de(Padre, Hijos),
+    member(Hijo, Hijos).
+
+madre(Madre, Hijo) :-
+    madre_de(Madre, Hijos),
+    member(Hijo, Hijos).
+
+
+hermano_de(X, Y) :- 
+    padre(P, X), padre(P, Y),
+    madre(M, X), madre(M, Y),
+    X \= Y.
+
+
+tio_de(X, Y) :- 
+    padre(P, Y), hermano_de(X, P).
+tio_de(X, Y) :- 
+    madre(P, Y), hermano_de(X, P).
+
+primo_de(X, Y) :-
+    (padre(P, X) ; madre(P, X)),
+    (padre(Q, Y) ; madre(Q, Y)),
+    hermano_de(P, Q),
+    X \= Y.
