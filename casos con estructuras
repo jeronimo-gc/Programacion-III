@@ -1,0 +1,35 @@
+% padre_de(Padre, Estructuradehiijos)
+padre_de(abraham, hijos([herbert, homero])).
+padre_de(clancy,  hijos([marge, patty, selma])).
+padre_de(homero,  hijos([bart, lisa, maggie])).
+
+% madre_de(Madre, Estructuradehijos)
+madre_de(mona,  hijos([herbert, homero])).
+madre_de(jacqueline, hijos([marge, patty, selma])).
+madre_de(marge, hijos([bart, lisa, maggie])).
+madre_de(selma,  hijos([ling])).
+
+
+padre(Padre, Hijo) :-
+    padre_de(Padre, hijos(Hijos)),
+    member(Hijo, Hijos).
+
+madre(Madre, Hijo) :-
+    madre_de(Madre, hijos(Hijos)),
+    member(Hijo, Hijos).
+
+hermano_de(X, Y) :- 
+    padre(P, X), padre(P, Y),
+    madre(M, X), madre(M, Y),
+    X \= Y.
+
+tio_de(X, Y) :- 
+    padre(P, Y), hermano_de(X, P).
+tio_de(X, Y) :- 
+    madre(P, Y), hermano_de(X, P).
+
+primo_de(X, Y) :-
+    (padre(P, X) ; madre(P, X)),
+    (padre(Q, Y) ; madre(Q, Y)),
+    hermano_de(P, Q),
+    X \= Y.
